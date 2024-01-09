@@ -1,12 +1,15 @@
-**Telegram RSS Bot**
+*Telegram RSS Bot*
+---
 
-This is a super simple, databaseless rss reader for Telegram. The python script keeps track of your subscription using a plain text file, feeds.txt. You'll need to find your Telegram Token and target CHAT ID, and include those values in config.txt.
+######A super simple, databaseless rss reader for Telegram.###### 
 
-1. Create a config.txt file with your Telegram Token and Chat ID, each on one line
+**This python script keeps track of your subscription using a plain text file, feeds.txt. You'll need to find your Telegram Token and target CHAT ID, and include those values in config.txt**
+
+1. Create a config.txt file with your Telegram Token and Chat ID, each on one line, like this:
 
 ```
-telegram token
-telegram chat id
+telegram_token
+telegram_chat_id
 ```
 
 2. feeds.txt contains your subscriptions, one-per-line. Each line is comma separated in three segments, containing this info: RSS URL | NICKNAME | LAST POST URL
@@ -24,13 +27,14 @@ python3 telegram_rss.py
 ```
 
 The commands available in the script are:
-- add a feed (paste a rss/atom feed into the tool without typing add)
+- add a feed (paste a rss/atom feed directly into the tool, no need to preface with "add")
 - "check" (checks all feeds for latest post)
 - "remove" (unsubscribe from a feed in feeds.txt with a UI picker)
 
 ![alt text](telegram_rss.GIF)
 
 To Do:
-- Create commands via botfather
+- Instructions on how to create commands via botfather
 - Have script "check" feeds on its own every 15 minutes
 - Explain how to retrieve token & chat ID
+- Need message for when /start occurs 
