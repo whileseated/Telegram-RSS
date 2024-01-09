@@ -33,3 +33,4 @@ The commands available in the script are:
 To Do:
 - Create commands via botfather
 - Have script "check" feeds on its own every 15 minutes
+- Explain how to retrieve token & chat ID
