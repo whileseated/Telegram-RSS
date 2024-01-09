@@ -1,42 +1,80 @@
-*Telegram RSS Bot*
----
+# Telegram RSS Bot
 
-A super simple, databaseless RSS reader for Telegram.
+A straightforward, database-free RSS reader bot for Telegram, designed for easy tracking of your favorite RSS feeds directly through Telegram messages.
 
-**This python script keeps track of your subscriptions using a plain text file, feeds.txt. You'll need to find your Telegram Token and target CHAT ID, and include those values in config.txt**
+## Features
 
-1. Use the BotFather to create your own Telegram bot/channel, which will generate your Telegram Token. You can use @userinfobot to find your own, personal chat ID. 
+- **No Database Required**: Uses a simple text file (`feeds.txt`) for managing subscriptions.
+- **Easy Configuration**: Just a `config.txt` file for Telegram Token and Chat ID.
+- **Supports Common RSS Formats**: Compatible with most RSS/Atom feeds.
+- **User-Friendly Commands**: Add, check, and remove feeds with intuitive Telegram bot commands.
 
-2. Create a config.txt file with your Telegram Token and your Chat ID, each on one line, like this:
+## Setup
+
+### Prerequisites
+
+- Python 3.x
+- `python-telegram-bot` module (version 13.7)
+- `feedparser` module
+
+### Installation
+
+1. **Create a Telegram Bot**:
+   - Use [@BotFather](https://t.me/botfather) to create a new Telegram bot. This will generate your Telegram Token.
+   - Find your personal chat ID using [@userinfobot](https://t.me/userinfobot).
+
+2. **Configuration File**:
+   - Create a `config.txt` file.
+   - Add your Telegram Token and your Chat ID on separate lines:
+
+     ```
+     your_telegram_token
+     your_telegram_chat_id
+     ```
+
+3. **Feeds File**:
+   - Create a blank `feeds.txt` file for your RSS subscriptions.
+   - When the bot adds a subscription (one per line), the feed information is formatted as follows: `RSS URL | NICKNAME | LAST POST URL`
+
+4. **Install Dependencies**:
+   Run the following commands to install necessary Python modules:
 
 ```
-telegram_token
-your_telegram_chat_id
-```
-
-3. feeds.txt contains your subscriptions, one-per-line. Each line is comma separated in three segments, containing this info: RSS URL | NICKNAME | LAST POST URL
-4. telegram_rss.py is the script. It's been built (and tested) with python-telegram-bot module (13.7 version). To install:
-
-```
-pip install python-telegram-bot=13.7
+pip install python-telegram-bot==13.7
 pip install feedparser
 ```
 
-5. Run the script, and keep it running.
+### Running the Bot
+
+Execute the script to start the bot:
 
 ```
 python3 telegram_rss.py
+
 ```
 
-Using @botfather you can configure commands so they're available in the bot's menu. The commands available in the script are:
-- add a feed (paste a rss/atom feed directly into the tool, no need to preface with "add")
-- "check" (checks all feeds for latest post)
-- "remove" (unsubscribe from a feed in feeds.txt with a UI picker)
+Keep the script running to maintain the bot's functionality.
 
-![alt text](telegram_rss.GIF)
+## Usage
 
-To Do:
-- Have script "check" feeds on its own every 15 minutes
-- Need message for when /start occurs 
-- Create a "cancel" option for each command
-- Need a "show all feeds" command
+Interact with the bot using these commands:
+
+- **Add a Feed**: Simply paste an RSS/Atom feed URL into the chat.
+- **Check Feeds**: Type `check` to review the latest posts from all subscribed feeds.
+- **Remove a Feed**: Use `remove` and follow the UI picker to unsubscribe from a feed.
+
+### Customizing Bot Commands
+
+Configure additional bot commands through [@BotFather](https://t.me/botfather) to make them available in the bot's menu.
+
+## Planned Features
+
+- [ ] Automatic feed checks every 15 minutes.
+- [ ] Start message for new users.
+- [ ] Cancel option for each command.
+- [ ] Command to display all subscribed feeds.
+- [ ] Dockerize it all.
+
+## Demonstration
+
+![Telegram RSS Bot in Action](telegram_rss.GIF)
