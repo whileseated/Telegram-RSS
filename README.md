@@ -1,6 +1,6 @@
 # Telegram RSS Bot
 
-A straightforward, database-free RSS reader bot for Telegram, designed for easy tracking of your favorite RSS feeds directly through Telegram messages.
+A straightforward, database-free RSS reader bot for Telegram, designed for easy tracking of your favorite RSS feeds.
 
 ## Features
 
