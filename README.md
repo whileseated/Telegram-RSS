@@ -1,5 +1,7 @@
 **Telegram RSS Bot**
 
+This is a super simple, databaseless rss reader for Telegram. The python script keeps track of your subscription using a plain text file, feeds.txt. You'll need to find your Telegram Token and target CHAT ID, and include those values in config.txt.
+
 1. Create a config.txt file with your Telegram Token and Chat ID, each on one line
 
 ```
@@ -26,5 +28,8 @@ The commands available in the script are:
 - "check" (checks all feeds for latest post)
 - "remove" (unsubscribe from a feed in feeds.txt with a UI picker)
 
-![test](https://imgur.com/a/fotalaT)
 ![alt text](telegram_rss.GIF)
+
+To Do:
+- Create commands via botfather
+- Have script "check" feeds on its own every 15 minutes
