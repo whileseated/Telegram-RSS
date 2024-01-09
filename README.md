@@ -1,7 +1,7 @@
 *Telegram RSS Bot*
 ---
 
-###A super simple, databaseless rss reader for Telegram.###
+##A super simple, databaseless rss reader for Telegram.##
 
 **This python script keeps track of your subscriptions using a plain text file, feeds.txt. You'll need to find your Telegram Token and target CHAT ID, and include those values in config.txt**
 
