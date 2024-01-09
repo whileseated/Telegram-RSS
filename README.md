@@ -39,10 +39,10 @@ A straightforward, database-free RSS reader bot for Telegram, designed for easy 
 4. **Install Dependencies**:
    Run the following commands to install necessary Python modules:
 
-```
-pip install python-telegram-bot==13.7
-pip install feedparser
-```
+    ```
+    pip install python-telegram-bot==13.7
+    pip install feedparser
+    ```
 
 ### Running the Bot
 
@@ -50,7 +50,6 @@ Execute the script to start the bot:
 
 ```
 python3 telegram_rss.py
-
 ```
 
 Keep the script running to maintain the bot's functionality.
@@ -72,7 +71,7 @@ Configure additional bot commands through [@BotFather](https://t.me/botfather) t
 - [ ] Automatic feed checks every 15 minutes.
 - [ ] Start message for new users.
 - [ ] Cancel option for each command.
-- [ ] Command to display all subscribed feeds.
+- [ ] New command to display all subscribed feeds.
 - [ ] Dockerize it all.
 
 ## Demonstration
