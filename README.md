@@ -73,7 +73,7 @@ Configure additional bot commands through [@BotFather](https://t.me/botfather) t
 - [ ] Start message for new users.
 - [ ] Cancel option for each command.
 - [ ] New command to display all subscribed feeds.
-- [ ] Dockerize it all.
+- [x] Dockerize it all.
 
 ## Demonstration
 
