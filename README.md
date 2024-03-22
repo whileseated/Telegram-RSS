@@ -1,11 +1,11 @@
-# Telegram RSS Bot 6
+# Telegram RSS Bot
 
 A straightforward, database-free RSS reader bot for Telegram, designed for easy tracking of your favorite RSS feeds.
 
 ## Features
 
 - **No Database Required**: Uses a simple text file (`feeds.txt`) for managing subscriptions.
-- **Easy Configuration**: Just a `config.txt` file for Telegram Token and Chat ID.
+- **Easy Configuration**: Just a `config.txt` file for Telegram Token, Chat ID and your personal telegram ID.
 - **Supports Common RSS Formats**: Compatible with most RSS/Atom feeds.
 - **User-Friendly Commands**: Add, check, and remove feeds with intuitive Telegram bot commands.
 - **Dockerized**: Runs in docker and writes outside of container so feeds.txt stays updated.
@@ -31,6 +31,7 @@ A straightforward, database-free RSS reader bot for Telegram, designed for easy 
      ```
      your_telegram_token
      your_telegram_chat_id
+     your_telegram_id (might be the same as the chat_id)
      ```
 
 3. **Feeds File**:

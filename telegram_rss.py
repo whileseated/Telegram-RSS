@@ -2,10 +2,15 @@ import logging
 import feedparser
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext, CallbackQueryHandler
+from telegram.error import NetworkError
+import time
 
 # Read the config file
 with open('config.txt', 'r') as f:
-    TOKEN, CHAT_ID = [line.strip() for line in f.readlines()]
+    TOKEN, CHAT_ID, ALLOWED_USER_ID = [line.strip() for line in f.readlines()]
+
+# Convert ALLOWED_USER_ID from string to int for comparison
+ALLOWED_USER_ID = int(ALLOWED_USER_ID)
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -19,10 +24,28 @@ dispatcher = updater.dispatcher
 # Global dictionary to temporarily store feed URLs before receiving nickname
 pending_feeds = {}
 
+def is_user_allowed(update):
+    return update.message.from_user.id == ALLOWED_USER_ID
+
 def start(update: Update, context: CallbackContext):
+    if not is_user_allowed(update):
+        return  # Exit if user is not allowed
     update.message.reply_text('Hi! I am your RSS feed bot. Send me an RSS URL to subscribe.')
 
+def safe_send_message(bot, chat_id, text):
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            bot.send_message(chat_id, text)
+            break  # If send is successful, break out of the loop
+        except NetworkError as e:
+            logger.error(f"NetworkError occurred: {e}. Attempt {attempt + 1} of {max_retries}")
+            time.sleep(5)  # Wait for 5 seconds before retrying
+
 def handle_message(update: Update, context: CallbackContext):
+    if not is_user_allowed(update):
+        return  # Exit if user is not allowed
+
     user_id = update.message.from_user.id
     text = update.message.text.strip()
 
@@ -62,35 +85,38 @@ def add_feed_to_file(url, nickname, latest_post_url):
     with open("feeds.txt", "a") as file:
         file.write(f"{url},{nickname},{latest_post_url}\n")
 
-
 def check_feeds(update: Update, context: CallbackContext):
-    with open("feeds.txt", "r+") as file:
-        lines = file.readlines()
-        file.seek(0)
-        found_new_posts = False
+    try:
+        with open("feeds.txt", "r+") as file:
+            lines = file.readlines()
+            file.seek(0)
+            found_new_posts = False
 
-        for line in lines:
-            if not line.strip():
-                continue  # Skip empty lines
+            for line in lines:
+                if not line.strip():
+                    continue  # Skip empty lines
 
-            url, nickname, last_link = line.strip().split(',')
-            feed = feedparser.parse(url)
+                url, nickname, last_link = line.strip().split(',')
+                feed = feedparser.parse(url)
 
-            if feed.entries:
-                new_link = feed.entries[0].link
-                if new_link != last_link:
-                    update.message.reply_text(f"New post in {nickname}: {new_link}")
-                    file.write(f"{url},{nickname},{new_link}\n")
-                    found_new_posts = True
+                if feed.entries:
+                    new_link = feed.entries[0].link
+                    if new_link != last_link:
+                        safe_send_message(context.bot, update.effective_chat.id, f"New post in {nickname}: {new_link}")
+                        file.write(f"{url},{nickname},{new_link}\n")
+                        found_new_posts = True
+                    else:
+                        file.write(line)
                 else:
                     file.write(line)
-            else:
-                file.write(line)
 
-        if not found_new_posts:
-            update.message.reply_text("No new posts found in subscribed feeds.")
+            if not found_new_posts:
+                safe_send_message(context.bot, update.effective_chat.id, "No new posts found in subscribed feeds.")
 
-        file.truncate()
+            file.truncate()
+    except Exception as e:
+        logger.error(f"An error occurred in check_feeds: {e}")
+        safe_send_message(context.bot, update.effective_chat.id, "An error occurred while checking feeds.")
 
 def show_remove_buttons(update: Update, context: CallbackContext):
     keyboard = []
