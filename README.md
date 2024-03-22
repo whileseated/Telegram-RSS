@@ -18,7 +18,7 @@ A straightforward, database-free RSS reader bot for Telegram, designed for easy 
 - `python-telegram-bot` module (version 13.7)
 - `feedparser` module
 
-### Installation
+### Dockerless Installation
 
 1. **Create a Telegram Bot**:
    - Use [@BotFather](https://t.me/botfather) to create a new Telegram bot. This will generate your Telegram Token.
@@ -36,7 +36,7 @@ A straightforward, database-free RSS reader bot for Telegram, designed for easy 
 
 3. **Feeds File**:
    - Create a blank `feeds.txt` file for your RSS subscriptions.
-   - When the bot adds a subscription (one per line), the feed information is formatted as follows: `RSS URL | NICKNAME | LAST POST URL`
+   - When the bot adds a subscription (one per line), the feed information is formatted as follows: `RSS URL , NICKNAME , LAST POST URL` 
 
 4. **Install Dependencies**:
    Run the following commands to install necessary Python modules:
@@ -45,6 +45,12 @@ A straightforward, database-free RSS reader bot for Telegram, designed for easy 
     pip install python-telegram-bot==13.7
     pip install feedparser
     ```
+
+### Docker Installation
+
+   1. **Commands**:
+   - Commands for Docker Desktop are included in the Dockerfile
+
 
 ### Running the Bot
 
