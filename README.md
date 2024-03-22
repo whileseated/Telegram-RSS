@@ -9,6 +9,7 @@ A straightforward, database-free RSS reader bot for Telegram, designed for easy 
 - **Supports Common RSS Formats**: Compatible with most RSS/Atom feeds.
 - **User-Friendly Commands**: Add, check, and remove feeds with intuitive Telegram bot commands.
 - **Dockerized**: Runs in docker and writes outside of container so feeds.txt stays updated.
+- **Private**: While all telegram bots are (by design) public, this particular bot is dedicated to one, single user. If anyone else tries to use the bot, they'll get a message denying access.
 
 ## Setup
 
