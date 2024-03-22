@@ -48,9 +48,16 @@ A straightforward, database-free RSS reader bot for Telegram, designed for easy 
 
 ### Docker Installation
 
-   1. **Commands**:
-   - Commands for Docker Desktop are included in the Dockerfile
+   **Steps 1-3 above, plus**:
+   - Build the Docker image like this:
+   ```
+   docker build -t name-of-your-docker-image .
+   ```
 
+   - Run the Docker container like this:
+   ```
+   docker run --restart=always --name name-of-your-docker-container -v /Users/location-of-your-repo-folder/:/app name-of-your-docker-image
+   ```
 
 ### Running the Bot
 
