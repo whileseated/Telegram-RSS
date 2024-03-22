@@ -24,12 +24,20 @@ dispatcher = updater.dispatcher
 # Global dictionary to temporarily store feed URLs before receiving nickname
 pending_feeds = {}
 
+def restricted(func):
+    def wrapped(update, context, *args, **kwargs):
+        user_id = update.effective_user.id
+        if user_id != ALLOWED_USER_ID:
+            update.message.reply_text("I'm sorry, but this is not a publicly available RSS bot.")
+            return  # Stop the execution of the function if user is not allowed
+        return func(update, context, *args, **kwargs)
+    return wrapped
+
 def is_user_allowed(update):
     return update.message.from_user.id == ALLOWED_USER_ID
 
+@restricted
 def start(update: Update, context: CallbackContext):
-    if not is_user_allowed(update):
-        return  # Exit if user is not allowed
     update.message.reply_text('Hi! I am your RSS feed bot. Send me an RSS URL to subscribe.')
 
 def safe_send_message(bot, chat_id, text):
@@ -42,6 +50,7 @@ def safe_send_message(bot, chat_id, text):
             logger.error(f"NetworkError occurred: {e}. Attempt {attempt + 1} of {max_retries}")
             time.sleep(5)  # Wait for 5 seconds before retrying
 
+@restricted
 def handle_message(update: Update, context: CallbackContext):
     if not is_user_allowed(update):
         return  # Exit if user is not allowed
@@ -85,6 +94,7 @@ def add_feed_to_file(url, nickname, latest_post_url):
     with open("feeds.txt", "a") as file:
         file.write(f"{url},{nickname},{latest_post_url}\n")
 
+@restricted
 def check_feeds(update: Update, context: CallbackContext):
     try:
         with open("feeds.txt", "r+") as file:
@@ -118,6 +128,7 @@ def check_feeds(update: Update, context: CallbackContext):
         logger.error(f"An error occurred in check_feeds: {e}")
         safe_send_message(context.bot, update.effective_chat.id, "An error occurred while checking feeds.")
 
+@restricted
 def show_remove_buttons(update: Update, context: CallbackContext):
     keyboard = []
     with open("feeds.txt", "r") as file:
