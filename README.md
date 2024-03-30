@@ -89,6 +89,7 @@ Configure additional bot commands through [@BotFather](https://t.me/botfather) t
 - [ ] Cancel option for each command.
 - [ ] New command to display all subscribed feeds.
 - [x] Dockerize it all.
+- [x] Added auth-check so bot can be used by one user only.
 
 ## Demonstration
 
